@@ -7,8 +7,8 @@ if [ $wa != "root" ]; then
   echo "Start this script with sudo prefix."
   exit
 fi
-#apt-get update
-#sudo apt-get install -y nodejs
+apt-get update
+sudo apt-get install -y nodejs
 echo ""
 echo -e "\e[100m\e[1mNode.js is correctly installed.\e[0m\e[0m"
 echo "Checking Node.js version:"
