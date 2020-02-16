@@ -1,51 +1,120 @@
 #!/usr/bin/env bash
-echo -e "\e[94m░▒▓[Nodar v0.1]▓▒░\e[0m"
-echo -e "\e[94mWe installing a simple environment to web app node.js & more.\e[0m"
-echo -e "\e[1mDeveloper: Dany .S, https://github.com/FoobarIT\e[0m"
 wa=`whoami`
 if [ $wa != "root" ]; then
   echo "Start this script with sudo prefix."
   exit
 fi
+echo -e "\e[94m░▒▓[Nodar v0.1 Fix]▓▒░\e[0m"
+echo -e "\e[94mWe installing a simple environment to web app node.js & more.\e[0m"
+echo -e "\e[1mDeveloper: Dany .S, https://github.com/FoobarIT\e[0m"
+echo ""
+echo -e "We update your linux system"
 apt-get update
-sudo apt-get install -y nodejs
+apt-get upgrade
+apt-get clean
+apt-get autoremove --purge
+echo -e "\e[32mYour linux system is now update.\e[0m"
 echo ""
-echo -e "\e[100m\e[1mNode.js is correctly installed.\e[0m\e[0m"
-echo "Checking Node.js version:"
-node -v
-echo "Checking Npm version:"
-npm -v
-echo ""
-echo -e "\e[1mActually available framework compatible with nodar.sh\e[0m"
-PS3='You can adding your favorite framework and module or just leave it: '
-options=("build-essential" "react-js" "vue-cli" "forever" "Quit")
-select opt in "${options[@]}"
-do
-    case $opt in
-        "build-essential")
-            echo "You have chosen to install build-essential."
-            apt-get install -y build-essential
-            echo "[Build Essential] installation is complete."
+
+node_Mode() {
+  echo "We install Node.JS"
+  sudo apt install nodejs npm > /dev/null
+  echo "We install build-essential"
+  sudo apt-get install -y build-essential
+}
+framework_Mode() {
+  echo -e "\e[1m[Framework Manager]\e[0m"
+  PS3='Choose an option:'
+  options=("vue-cli" "react.js" "angular.js" "adonis.js" "Exit")
+    select opt in "${options[@]}"
+      do
+        case $opt in
+          "vue-cli")
+            echo "vue-cli installation.."
+            sudo npm install -g @vue/
+            echo "Success Install"
             ;;
-        "react-js")
-            echo "You have chosen to install react-js."
-            npm install -g create-react-app
-            echo "[React JS] installation is complete."
+          "react.js")
+            echo "react.js installation.."
+            sudo npm install -g create-react-app
+            echo "Success Install"
             ;;
-        "vue-cli")
-            echo "You have chosen to install vue-cli."
-            npm install -g @vue/cli
-            echo "[Vue Cli] installation is complete."
+          "angular.js")
+            echo "angular.js installation.."
+            sudo npm install -g @angular/cli
+            echo "Success Install"
             ;;
-        "forever")
-            echo "You have chosen to install forever."
-            npm install forever -g
-            echo "[Forever] installation is complete."
+          "adonis.js")
+            echo "adonis.js installation.."
+            sudo npm i -g @adonisjs/cli
+            echo "Success Install"
             ;;
-        "Quit")
+          "Exit")
             break
             ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done
-exit 0
+          *) echo "[Err]Choice invalid - $REPLY";;
+        esac
+      done
+    exit 0
+}
+
+module_Mode() {
+  echo -e "\e[1m[Module manager]\e[0m"
+  PS3='Choose an option:'
+  options=("body-parser" "express" "socket.io" "axios" "Framework installation")
+    select opt in "${options[@]}"
+      do
+        case $opt in
+         "body-parser")
+           echo "body-parser installation.."
+           sudo npm install body-parser --save
+           echo "Success Install"
+           ;;
+         "express")
+           echo "express installation.."
+           sudo npm install express --save
+           echo "Success Install"
+           ;;
+         "socket.io")
+           echo "socket.io installation.."
+           sudo npm install socket.io --save
+           echo "Success Install"
+           ;;
+         "axios")
+           echo "axios installation.."
+           sudo npm install axios --save
+           echo "Success Install"
+           ;;
+         "Framework installation")
+           framework_Mode
+           ;;
+         *) echo "[Err]Choice invalid - $REPLY";;
+       esac
+     done
+}
+
+echo -e "\e[1m[Node.js manager]\e[0m"
+PS3='Choose an option:'
+options=("Install" "Update" "Check version" "Module installation")
+  select opt in "${options[@]}"
+    do
+      case $opt in
+        "Install")
+          node_Mode
+          ;;
+        "Update")
+          echo "update"
+          sudo n latest
+          ;;
+        "Check version")
+          echo "Node.JS version:"
+          node -v
+          echo "NPM version:"
+          npm -v
+          ;;
+        "Module installation")
+          module_Mode
+          ;;
+        *) echo "[Err]Choice invalid - $REPLY";;
+      esac
+  done
