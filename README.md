@@ -1,16 +1,6 @@
-# Nodar 0.1
-![Image of Yaktocat](https://image.noelshack.com/fichiers/2020/07/4/1581570685-telechargement.png)
+# Nodar 0.1 Fix
 
 **Nodar.sh** is a simple shell script allowing to automatically install node.js and several frameworks. You can help improve the project by offering suggestions.
-
-# Features
-
- - Auto installer to Node.js
- - Lets choice system
- - build-essential
- - create-react-app
- - vue-cli
- - forever
 
 # Install
 
